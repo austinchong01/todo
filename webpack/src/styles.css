@@ -2,9 +2,3 @@
 body {
     background-color: lightblue;
 }
-
-.project {
-  display: flex;
-  gap: 10px;
-  border: 1px solid black;
-}

@@ -6,16 +6,23 @@
     <title>Template</title>
 </head>
 <body>
-    <div class="project">
-        <label for="title">           Title: <input type="text" id="title" maxlength="15">  </label>
-        <label for="description">     Description: <input type="text" id="description" maxlength="40">     </label>
-        <label for="date">            Date: <input type="date" id="date">                   </label>
-        <label for="priority">Priority: </label>
-            <select name="priority" id="priority">
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-            </select>
-    </div>
+    <header>Heading</header>
+    <dialog>
+        <form>
+            <label for="title">           Title: <input type="text" id="title" maxlength="15">  </label>
+            <label for="description">     Description: <input type="text" id="description" maxlength="40">     </label>
+            <label for="dueDate">            Date: <input type="date" id="dueDate">                   </label>
+            <label for="priority">Priority: </label>
+                <select name="priority" id="priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            <input id="checkList" type="checkbox">
+            <button class="close">OK</button>
+        </form>
+    </dialog>
+    <button class="project">Add Project</button>
+    <button class="task">Add Task</button>
 </body>
 </html>
