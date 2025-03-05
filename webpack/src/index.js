@@ -7,35 +7,40 @@ const projects = [];
 
 const projectListener = (function(){
     const addProjBtn = document.querySelector(".project");
+
     addProjBtn.addEventListener("click", () => {
         const newProject = document.createElement("div");
         const index = getIndex(projects);
         newProject.setAttribute("data-attribute-index", `${index}`);
-        createProject();
         document.body.appendChild(newProject);
+        addTask(newProject, index);
+
+        createProject();
     })
 })();
 
-const taskListener = (function(){
+function addTask(newProject, index){
+    const addTaskBtn = document.createElement("button");
+    addTaskBtn.setAttribute("data-attribute-index", `${index}`);
+    addTaskBtn.setAttribute("class", "task");
+    addTaskBtn.textContent = "Add Task";
+    newProject.appendChild(addTaskBtn);
+
     const dialog = document.body.querySelector("dialog");
-    const addTaskBtn = document.body.querySelector(".task");
-    const closeTaskBtn = document.body.querySelector(".close")
+    const closeTaskBtn = document.body.querySelector(".close");
+
     addTaskBtn.addEventListener("click", () => {
+        console.log("reached")
         dialog.showModal();
     })
+    
     closeTaskBtn.addEventListener("click", (event) => {
         event.preventDefault();
-        const currProj = getCurrProject();
-        createTask(currProj);
+        createTask(projects[index]);
+        console.log(projects)
         dialog.close();
     })
-})();
-
-function getCurrProject() {
-    //add event listener for where button was clicked
-    //get index for project
-    //return correct project object from projects array
-}
+};
 
 function createProject() {
     const project = new Project();
