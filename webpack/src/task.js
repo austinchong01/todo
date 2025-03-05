@@ -18,6 +18,7 @@ class Task {
 function createTask(project, title, description, dueDate, priority, checkList) {
     const task = new Task(project, title, description, dueDate, priority, checkList);
     project.tasks.push(task);
+    return task;
 }
 
 export { createTask }
