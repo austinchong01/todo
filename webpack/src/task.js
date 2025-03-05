@@ -1,5 +1,3 @@
-import { projects } from "./console";
-
 class Task {
     constructor(project, title, description, dueDate, priority, checkList) {
         this.project = project;
