@@ -1,10 +1,3 @@
-import "./styles.css"
-import Project from "./project.js"
-import Task from "./task.js"
-
-//array of all projects
-const projects = [];
-
 const projectListener = (function(){
     const addProjBtn = document.querySelector(".project");
 
@@ -68,8 +61,4 @@ function clearField(title, description, dueDate, priority, checkList){
     dueDate.value = "";
     priority.value = "";
     checkList.value = "";
-}
-
-function getIndex(array){
-    return array.length;
 }

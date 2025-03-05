@@ -1,9 +1,16 @@
-export default class Project {
-    constructor(){
-        this.array = [];
-    }
+import { projects } from "./console";
 
-    addTask(task) {
-        this.array.push(task);
+class Project {
+    constructor(index){
+        this.tasks = [];
+        this.index = index;
     }
 }
+
+function createProject() {
+    const index = projects.length;
+    const project = new Project(index);
+    projects.push(project);
+}
+
+export { createProject }
