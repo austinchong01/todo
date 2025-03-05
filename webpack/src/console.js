@@ -7,10 +7,12 @@ export const projects = [];
 
 createProject();
 createProject();
-createProject();
 
-createTask(1, "test", "test", "test", "test", "test");
-createTask(2, "test2", "test2", "test2", "test2", "test2");
-createTask(2, "test3", "test3", "test3", "test3", "test3");
+const project0 = projects[0];
+const project1 = projects[1];
+
+createTask(project0, "test0", "test0", "test0", "test0", "test0");
+createTask(project1, "test1", "test1", "test1", "test1", "test1");
+
 
 console.log(projects);

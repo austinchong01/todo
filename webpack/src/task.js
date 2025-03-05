@@ -1,21 +1,23 @@
 import { projects } from "./console";
 
 class Task {
-    constructor(title, description, dueDate, priority, checkList, index) {
+    constructor(project, title, description, dueDate, priority, checkList) {
+        this.project = project;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.checkList = checkList;
-        this.index = index;
+    }
+    delete() {
+        const index = this.project.tasks.indexOf(this);
+        this.project.tasks.splice(index, 1);
     }
 }
 
-function createTask(projNum, title, description, dueDate, priority, checkList) {
-    const currProject = projects[projNum];
-    const index = currProject.tasks.length;
-    const task = new Task(title, description, dueDate, priority, checkList, index);
-    currProject.tasks.push(task)
+function createTask(project, title, description, dueDate, priority, checkList) {
+    const task = new Task(project, title, description, dueDate, priority, checkList);
+    project.tasks.push(task);
 }
 
 export { createTask }

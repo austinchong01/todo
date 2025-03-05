@@ -23,24 +23,14 @@ function addTask(newProject, index){
     const closeTaskBtn = document.body.querySelector(".close");
 
     addTaskBtn.addEventListener("click", () => {
-        console.log("reached")
         dialog.showModal();
     })
     
     closeTaskBtn.addEventListener("click", (event) => {
         event.preventDefault();
-        createTask(projects[index]);
-        console.log(projects)
         dialog.close();
     })
 };
-
-function createProject() {
-    const project = new Project();
-    projects.push(project);
-
-    console.log(projects)
-}
 
 function createTask(project) {
     const title = document.querySelector("#title");
@@ -48,9 +38,6 @@ function createTask(project) {
     const dueDate = document.querySelector("#dueDate");
     const priority = document.querySelector("#priority");
     const checkList = document.querySelector("#checkList");
-
-    const task = new Task(title.value, description.value, dueDate.value, priority.value, checkList.value);
-    project.addTask(task);
 
     clearField(title, description, dueDate, priority, checkList);
 }
