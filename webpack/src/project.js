@@ -3,12 +3,12 @@ export default class Project {
         this.name = name;
         this.tasks = [];
     }
-}
+    add(task) {
+        this.tasks.push(task);
+    }
 
-function createProject(name) {
-    const project = new Project(name);
-    projects.push(project);
-    return project;
+    remove(task) {
+        const index = this.tasks.indexOf(task);
+        this.tasks.splice(index, 1);
+    }
 }
-
-export { createProject }

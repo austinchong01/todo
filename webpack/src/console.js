@@ -1,15 +1,10 @@
 import "./styles.css"
-import { createProject } from "./project.js";
-import { createTask } from "./task";
+import ProjectManager from "./project_manager.js";
+import Project from "./project.js";
+import Task from "./task";
 
-//array of all projects
-export const projects = [];
-
-createProject();
-
-const project0 = projects[0];
-
-const task0 = createTask(project0, "test0", "test0", "test0", "test0", "test0");
+const Todo = new ProjectManager;
 
 
-console.log(projects);
+
+console.log(Todo);
