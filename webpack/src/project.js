@@ -1,17 +1,12 @@
-import { projects } from "./console";
-
-class Project {
-    constructor() {
+export default class Project {
+    constructor (name) {
+        this.name = name;
         this.tasks = [];
-    }
-    delete() {
-        const index = projects.indexOf(this);
-        projects.splice(index, 1);
     }
 }
 
-function createProject() {
-    const project = new Project();
+function createProject(name) {
+    const project = new Project(name);
     projects.push(project);
     return project;
 }
