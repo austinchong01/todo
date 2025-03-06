@@ -8,7 +8,6 @@ export default class Project {
     }
 
     remove(task) {
-        const index = this.tasks.indexOf(task);
-        this.tasks.splice(index, 1);
+        this.tasks =  this.tasks.filter(item => item !== task);
     }
 }

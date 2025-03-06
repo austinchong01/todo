@@ -8,7 +8,6 @@ export default class ProjectManager {
     }
 
     remove(project) {
-        const index = this.projects.indexOf(project);
-        this.projects.splice(index, 1);
+        this.projects =  this.projects.filter(item => item !== project);
     }
 }
