@@ -2,13 +2,18 @@ import "./styles.css";
 import ProjectManager from "./project_manager.js";
 import Project from "./project.js";
 import Task from "./task";
-import { openProjectDialog } from "./dom.js";
+import { openProjectDialog, closeProjectDialog } from "./dom.js";
 
 
 export const Todo = new ProjectManager;
 
-const addProjBtn = document.querySelector(".addProjBtn");
+
+const addProjBtn = document.querySelector("#addProjBtn");
 addProjBtn.addEventListener("click", openProjectDialog);
+
+const closeDialog = document.querySelector("#projCloseBtn");
+closeDialog.addEventListener("click", closeProjectDialog);
+
 
 export function createProject(name){
     const project = new Project(name);
