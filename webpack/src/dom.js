@@ -7,7 +7,6 @@ const taskDialog = document.querySelector("#taskDialog");
 
 export function openProjectDialog() {
     projDialog.showModal();
-    //console.log("clicked");
 }
 
 export function closeProjectDialog() {
@@ -20,19 +19,28 @@ export function closeProjectDialog() {
 
 export function openTaskDialog() {
     taskDialog.showModal();
-    console.log(event.target);
+    const currProjectIndex = event.target.getAttribute("data-attribute-index");
+
+    const deleteProjIndDiv = document.querySelector("#projIndex");
+    deleteProjIndDiv.remove();
+
+    const projIndex = document.createElement("div");
+    projIndex.setAttribute("id", "projIndex");
+    projIndex.setAttribute("data-attribute-index", `${currProjectIndex}`);
+    taskDialog.appendChild(projIndex);
 }
 
-export function closeTaskDialog(event, project) {
-    // const title = document.querySelector("#title");
-    // const description = document.querySelector("#description");
-    // const dueDate = document.querySelector("#dueDate");
-    // const priority = document.querySelector("#priority");
-    // const checkList = document.querySelector("#checkList");
-    // const index = Todo.projects.indexOf(project);
-    // createTask(title, description, dueDate, priority, checkList, index)
+export function closeTaskDialog() {
+    const title = document.querySelector("#title");
+    const description = document.querySelector("#description");
+    const dueDate = document.querySelector("#dueDate");
+    const priority = document.querySelector("#priority");
+    const checkList = document.querySelector("#checkList");
+    const projIndex = document.querySelector("#projIndex");
+    const index = projIndex.getAttribute("data-attribute-index")
+    createTask(title.value, description.value, dueDate.value, priority.value, checkList.value, index);
 
-    // clearField(title, description, dueDate, priority, checkList);
+    clearField(title, description, dueDate, priority, checkList);
     taskDialog.close();
 }
 
@@ -68,6 +76,7 @@ export function renderDom() {
 function resetDOM() {
     const del = document.querySelector("#Todo");
     del.remove();
+
     const newDOM = document.createElement("div");
     newDOM.setAttribute("id", "Todo");
     document.body.appendChild(newDOM)
