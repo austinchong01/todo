@@ -1,6 +1,4 @@
 import { Todo, createProject, createTask } from "./console";
-import Project from "./project.js";
-import Task from "./task";
 
 const projDialog = document.querySelector("#projectDialog");
 const taskDialog = document.querySelector("#taskDialog");
