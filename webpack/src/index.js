@@ -8,8 +8,6 @@ const projectListener = (function(){
         newProject.setAttribute("data-attribute-index", `${index}`);
         document.body.appendChild(newProject);
         addTask(newProject, index);
-
-        createProject();
     })
 })();
 
