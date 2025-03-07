@@ -31,20 +31,20 @@ function addTask(newProject, index){
     })
 };
 
-function createTask(project) {
-    const title = document.querySelector("#title");
-    const description = document.querySelector("#description");
-    const dueDate = document.querySelector("#dueDate");
-    const priority = document.querySelector("#priority");
-    const checkList = document.querySelector("#checkList");
+// function createTask(project) {
+//     const title = document.querySelector("#title");
+//     const description = document.querySelector("#description");
+//     const dueDate = document.querySelector("#dueDate");
+//     const priority = document.querySelector("#priority");
+//     const checkList = document.querySelector("#checkList");
 
-    clearField(title, description, dueDate, priority, checkList);
-}
+//     clearField(title, description, dueDate, priority, checkList);
+// }
 
-function clearField(title, description, dueDate, priority, checkList){
-    title.value = "";
-    description.value = "";
-    dueDate.value = "";
-    priority.value = "";
-    checkList.value = "";
-}
+// function clearField(title, description, dueDate, priority, checkList){
+//     title.value = "";
+//     description.value = "";
+//     dueDate.value = "";
+//     priority.value = "";
+//     checkList.value = "";
+// }
