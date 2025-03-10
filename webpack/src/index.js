@@ -1,50 +1,44 @@
+import "./styles.css";
+import ProjectManager from "./project_manager.js";
+import Project from "./project.js";
+import Task from "./task.js";
+import { openProjectDialog, closeProjectDialog, closeTaskDialog, renderDom } from "./dom.js";
 
-const projectListener = (function(){
-    const addProjBtn = document.querySelector(".project");
 
-    addProjBtn.addEventListener("click", () => {
-        const newProject = document.createElement("div");
-        const index = getIndex(projects);
-        newProject.setAttribute("data-attribute-index", `${index}`);
-        document.body.appendChild(newProject);
-        addTask(newProject, index);
-    })
-})();
+export const Todo = new ProjectManager;
 
-function addTask(newProject, index){
-    const addTaskBtn = document.createElement("button");
-    addTaskBtn.setAttribute("data-attribute-index", `${index}`);
-    addTaskBtn.setAttribute("class", "task");
-    addTaskBtn.textContent = "Add Task";
-    newProject.appendChild(addTaskBtn);
+createProject("Default");
 
-    const dialog = document.body.querySelector("dialog");
-    const closeTaskBtn = document.body.querySelector(".close");
+const addProjBtn = document.querySelector("#addProjBtn");
+addProjBtn.addEventListener("click", openProjectDialog);
 
-    addTaskBtn.addEventListener("click", () => {
-        dialog.showModal();
-    })
-    
-    closeTaskBtn.addEventListener("click", (event) => {
-        event.preventDefault();
-        dialog.close();
-    })
-};
+const closeProjBtn = document.querySelector("#closeProjBtn");
+closeProjBtn.addEventListener("click", closeProjectDialog);
 
-// function createTask(project) {
-//     const title = document.querySelector("#title");
-//     const description = document.querySelector("#description");
-//     const dueDate = document.querySelector("#dueDate");
-//     const priority = document.querySelector("#priority");
-//     const checkList = document.querySelector("#checkList");
+export function createProject(name){
+    const project = new Project(name);
+    Todo.add(project);
+    renderDom();
+}
 
-//     clearField(title, description, dueDate, priority, checkList);
-// }
+export function removeProject(event){
+    const projectIndex = event.target.getAttribute("data-attribute-index");
+    const project = Todo.projects[projectIndex];
+    Todo.remove(project);
+    renderDom();
+}
 
-// function clearField(title, description, dueDate, priority, checkList){
-//     title.value = "";
-//     description.value = "";
-//     dueDate.value = "";
-//     priority.value = "";
-//     checkList.value = "";
-// }
+
+const closeTaskBtn = document.querySelector("#closeTaskBtn");
+closeTaskBtn.addEventListener("click", closeTaskDialog);
+
+export function createTask(title, description, dueDate, priority, checkList, projIndex) {
+    const task = new Task(title, description, dueDate, priority, checkList);
+    Todo.projects[projIndex].add(task);
+    renderDom();
+}
+
+export function removeTask(event, project, task){
+    project.remove(task);
+    renderDom();
+}

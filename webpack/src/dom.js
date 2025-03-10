@@ -1,4 +1,4 @@
-import { Todo, createProject, createTask } from "./console";
+import { Todo, createProject, createTask, removeProject, removeTask } from "./index";
 
 const projDialog = document.querySelector("#projectDialog");
 const taskDialog = document.querySelector("#taskDialog");
@@ -53,15 +53,33 @@ export function renderDom() {
         newProject.textContent = currProject.name;
         newDOM.appendChild(newProject);
 
-        for(let j = 0; j < currProject.length; j++){
+        for(let j = 0; j < currProject.tasks.length; j++){
             //add Task DOM
             const newTask = document.createElement("div");
             newTask.setAttribute("data-attribute-index", `${j}`);
             newTask.textContent = currProject.tasks[j].title;
             newProject.appendChild(newTask);
+
+            //add removeTask Button DOM
+            const removeTaskBtn = document.createElement("button");
+            removeTaskBtn.textContent = "Remove Task";
+            removeTaskBtn.setAttribute("class", "removeTaskBtn");
+            removeTaskBtn.setAttribute("data-attribute-index", `${i}`);
+            removeTaskBtn.addEventListener("click", function(event) {
+                removeTask(event, currProject, currProject.tasks[j]);
+            });
+            newTask.appendChild(removeTaskBtn);
         }
 
-        //add Task Button DOM
+        //add removeProject Button DOM
+        const removeProjBtn = document.createElement("button");
+        removeProjBtn.textContent = "Remove Project";
+        removeProjBtn.setAttribute("class", "removeProjBtn");
+        removeProjBtn.setAttribute("data-attribute-index", `${i}`);
+        removeProjBtn.addEventListener("click", removeProject);
+        newProject.appendChild(removeProjBtn);
+
+        //add addTask Button DOM
         const addTaskBtn = document.createElement("button");
         addTaskBtn.textContent = "Add Task";
         addTaskBtn.setAttribute("class", "addTaskBtn");
