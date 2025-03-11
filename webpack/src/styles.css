@@ -18,3 +18,15 @@ td {
 .false {
   background-color: lightcoral;
 }
+
+.Low {
+  background-color: greenyellow;
+}
+
+.Medium {
+  background-color: yellow;
+}
+
+.High {
+  background-color: orangered;
+}

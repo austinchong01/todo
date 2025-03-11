@@ -1,7 +1,8 @@
-import { Todo, createProject, createTask, removeProject, removeTask, changeStatus } from "./index";
+import { Todo, createProject, createTask, removeProject, removeTask, changeStatus, editTask } from "./index";
 
 const projDialog = document.querySelector("#projectDialog");
 const taskDialog = document.querySelector("#taskDialog");
+const editDialog = document.querySelector("#editDialog");
 
 export function openProjectDialog() {
     projDialog.showModal();
@@ -35,11 +36,61 @@ export function closeTaskDialog() {
     const priority = document.querySelector("#priority");
     const checkList = document.querySelector("#checkList");
     const projIndex = document.querySelector("#projIndex");
-    const index = projIndex.getAttribute("data-attribute-index")
+    const index = projIndex.getAttribute("data-attribute-index");
     createTask(title.value, description.value, dueDate.value, priority.value, checkList.checked, index);
 
     clearField(title, description, dueDate, priority, checkList);
     taskDialog.close();
+}
+
+function openEditDialog(event, currProjectIndex, task, currTaskIndex){
+    const title = document.querySelector("#editTitle");
+    const description = document.querySelector("#editDescription");
+    const dueDate = document.querySelector("#editDueDate");
+    const priority = document.querySelector("#editPriority");
+    const checkList = document.querySelector("#editCheckList");
+
+    const deleteProjIndDiv = document.querySelector("#editProjIndex");
+    deleteProjIndDiv.remove();
+
+    const deleteTaskIndDiv = document.querySelector("#taskIndex");
+    deleteTaskIndDiv.remove();
+
+    const projIndex = document.createElement("div");
+    projIndex.setAttribute("id", "editProjIndex");
+    projIndex.setAttribute("data-attribute-index", `${currProjectIndex}`);
+    editDialog.appendChild(projIndex);
+
+    const taskIndex = document.createElement("div");
+    taskIndex.setAttribute("id", "taskIndex");
+    taskIndex.setAttribute("data-attribute-index", `${currTaskIndex}`);
+    editDialog.appendChild(taskIndex);
+
+    title.value = task.title;
+    description.value = task.description;
+    dueDate.value = task.dueDate;
+    priority.value = task.priority;
+    checkList.checked = task.checkList;
+
+    editDialog.showModal();
+}
+
+export function closeEditDialog(){
+    const projIndex = document.querySelector("#editProjIndex");
+    const currProjIndex = projIndex.getAttribute("data-attribute-index");
+
+    const taskIndex = document.querySelector("#taskIndex");
+    const currTaskIndex = taskIndex.getAttribute("data-attribute-index");
+
+    const task = Todo.projects[currProjIndex].tasks[currTaskIndex];
+
+    const title = document.querySelector("#editTitle");
+    const description = document.querySelector("#editDescription");
+    const dueDate = document.querySelector("#editDueDate");
+    const priority = document.querySelector("#editPriority");
+    const checkList = document.querySelector("#editCheckList");
+    editTask(task, title.value, description.value, dueDate.value, priority.value, checkList.checked);
+    editDialog.close();
 }
 
 export function renderDom() {
@@ -75,6 +126,7 @@ export function renderDom() {
 
             const priority = document.createElement("td");
             priority.textContent = currProject.tasks[j].priority;
+            priority.setAttribute("class", `${currProject.tasks[j].priority}`);
             newTask.appendChild(priority);
 
             const checkList = document.createElement("td");
@@ -85,6 +137,16 @@ export function renderDom() {
             });
             checkList.appendChild(changeStatusBtn)
             newTask.appendChild(checkList);
+
+            const editTask = document.createElement("td");
+            const editTaskBtn = document.createElement("button");
+            editTaskBtn.textContent = "Edit"
+            editTaskBtn.setAttribute("data-attribute-index", `${i}`);
+            editTaskBtn.addEventListener("click", function(event){
+                openEditDialog(event, i, currProject.tasks[j], j);
+            });
+            editTask.appendChild(editTaskBtn);
+            newTask.appendChild(editTask);
 
             //add removeTask Button DOM
             const removeTaskBtn = document.createElement("button");
@@ -138,6 +200,7 @@ function setStatus(button, status){
     button.textContent = text;
 }
 
+
 function resetDOM() {
     const del = document.querySelector("#Todo");
     del.remove();
@@ -147,6 +210,7 @@ function resetDOM() {
     document.body.appendChild(newDOM)
     return newDOM;
 }
+
 
 function clearField(title, description, dueDate, priority, checkList){
     title.value = "";

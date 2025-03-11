@@ -21,6 +21,22 @@
         <div id="projIndex"></div>
     </dialog>
 
+    <dialog id="editDialog">
+        <label for="editTitle">           Title: <input type="text" id="editTitle" maxlength="15">  </label>
+        <label for="editDescription">     Description: <input type="text" id="editDescription" maxlength="40">     </label>
+        <label for="editDueDate">            Date: <input type="date" id="editDueDate">                   </label>
+        <label for="editPriority">Priority: </label>
+            <select name="editPriority" id="editPriority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        <input id="editCheckList" type="checkbox">
+        <button id="closeEditDialog">OK</button>
+        <div id="editProjIndex"></div>
+        <div id="taskIndex"></div>
+    </dialog>
+
     <dialog id="projectDialog">
         <label for="projectName">
             Project Name: <input required type="text" id="projectName" minlength="1">

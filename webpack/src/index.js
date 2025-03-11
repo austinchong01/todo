@@ -2,7 +2,7 @@ import "./styles.css";
 import ProjectManager from "./project_manager.js";
 import Project from "./project.js";
 import Task from "./task.js";
-import { openProjectDialog, closeProjectDialog, closeTaskDialog, renderDom } from "./dom.js";
+import { openProjectDialog, closeProjectDialog, closeTaskDialog, closeEditDialog, renderDom } from "./dom.js";
 
 
 export const Todo = new ProjectManager;
@@ -49,5 +49,16 @@ export function changeStatus(event, task){
     } else { //if task.checkList == "false"
         task.checkList = true;
     }
+    renderDom();
+}
+
+const closeEditDialogBtn = document.querySelector("#closeEditDialog");
+closeEditDialogBtn.addEventListener("click", closeEditDialog)
+
+export function editTask(task, title, description, dueDate, priority, checkList){
+    task.title = title;
+    task.description = description;
+    task.dueDate = dueDate;
+    task.checkList = checkList;
     renderDom();
 }
