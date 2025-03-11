@@ -42,3 +42,12 @@ export function removeTask(event, project, task){
     project.remove(task);
     renderDom();
 }
+
+export function changeStatus(event, task){
+    if(task.checkList == "on"){
+        task.checkList = "off";
+    } else { //if task.checkList == "off"
+        task.checkList = "on"
+    }
+    renderDom();
+}

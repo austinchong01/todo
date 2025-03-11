@@ -1,4 +1,4 @@
-import { Todo, createProject, createTask, removeProject, removeTask } from "./index";
+import { Todo, createProject, createTask, removeProject, removeTask, changeStatus } from "./index";
 
 const projDialog = document.querySelector("#projectDialog");
 const taskDialog = document.querySelector("#taskDialog");
@@ -78,7 +78,12 @@ export function renderDom() {
             newTask.appendChild(priority);
 
             const checkList = document.createElement("td");
-            checkList.textContent = currProject.tasks[j].checkList;
+            const changeStatusBtn = document.createElement("button");
+            setStatus(changeStatusBtn, currProject.tasks[j].checkList);
+            changeStatusBtn.addEventListener("click", function(event) {
+                changeStatus(event, currProject.tasks[j]);
+            });
+            checkList.appendChild(changeStatusBtn)
             newTask.appendChild(checkList);
 
             //add removeTask Button DOM
@@ -119,6 +124,18 @@ export function renderDom() {
     }
 }
 
+//status button for change
+//status value = off/on
+function setStatus(button, status){
+    let text;
+    if (status == "on"){
+        text = "complete";
+    } else { // status == "off"
+        text = "incomplete"
+    }
+    button.textContent = text;
+}
+
 function resetDOM() {
     const del = document.querySelector("#Todo");
     del.remove();
@@ -133,6 +150,6 @@ function clearField(title, description, dueDate, priority, checkList){
     title.value = "";
     description.value = "";
     dueDate.value = "";
-    priority.value = "";
-    checkList.value = "";
+    priority.value = "Low";
+    checkList.value = "off";
 }
