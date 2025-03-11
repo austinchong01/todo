@@ -59,6 +59,7 @@ export function editTask(task, title, description, dueDate, priority, checkList)
     task.title = title;
     task.description = description;
     task.dueDate = dueDate;
+    task.priority = priority;
     task.checkList = checkList;
     renderDom();
 }

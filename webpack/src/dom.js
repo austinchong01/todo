@@ -89,6 +89,8 @@ export function closeEditDialog(){
     const dueDate = document.querySelector("#editDueDate");
     const priority = document.querySelector("#editPriority");
     const checkList = document.querySelector("#editCheckList");
+    console.log(priority.value)
+
     editTask(task, title.value, description.value, dueDate.value, priority.value, checkList.checked);
     editDialog.close();
 }
