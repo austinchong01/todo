@@ -47,18 +47,39 @@ export function renderDom() {
     console.log(Todo.projects)
     for(let i = 0; i < Todo.projects.length; i++){
         const currProject = Todo.projects[i];
+
         //add Project DOM
-        const newProject = document.createElement("div");
+        const newProject = document.createElement("table");
         newProject.setAttribute("data-attribute-index", `${i}`);
-        newProject.textContent = currProject.name;
+
+        const projHeader = document.createElement("tr");
+        const projName = document.createElement("th")
+        projName.textContent = currProject.name;
+        newProject.appendChild(projHeader);
+        projHeader.appendChild(projName);
         newDOM.appendChild(newProject);
 
         for(let j = 0; j < currProject.tasks.length; j++){
             //add Task DOM
-            const newTask = document.createElement("div");
+            const newTask = document.createElement("tr");
             newTask.setAttribute("data-attribute-index", `${j}`);
-            newTask.textContent = currProject.tasks[j].title;
             newProject.appendChild(newTask);
+
+            const title = document.createElement("td");
+            title.textContent = currProject.tasks[j].title;
+            newTask.appendChild(title);
+
+            const dueDate = document.createElement("td");
+            dueDate.textContent = currProject.tasks[j].dueDate;
+            newTask.appendChild(dueDate);
+
+            const priority = document.createElement("td");
+            priority.textContent = currProject.tasks[j].priority;
+            newTask.appendChild(priority);
+
+            const checkList = document.createElement("td");
+            checkList.textContent = currProject.tasks[j].checkList;
+            newTask.appendChild(checkList);
 
             //add removeTask Button DOM
             const removeTaskBtn = document.createElement("button");
@@ -68,7 +89,9 @@ export function renderDom() {
             removeTaskBtn.addEventListener("click", function(event) {
                 removeTask(event, currProject, currProject.tasks[j]);
             });
-            newTask.appendChild(removeTaskBtn);
+            const removeTaskBtnTD = document.createElement("td");
+            removeTaskBtnTD.appendChild(removeTaskBtn)
+            newTask.appendChild(removeTaskBtnTD);
         }
 
         //add removeProject Button DOM
@@ -77,7 +100,11 @@ export function renderDom() {
         removeProjBtn.setAttribute("class", "removeProjBtn");
         removeProjBtn.setAttribute("data-attribute-index", `${i}`);
         removeProjBtn.addEventListener("click", removeProject);
-        newProject.appendChild(removeProjBtn);
+
+        const removeProjBtnHeader = document.createElement("th");
+        removeProjBtnHeader.appendChild(removeProjBtn);
+        projHeader.appendChild(removeProjBtnHeader);
+
 
         //add addTask Button DOM
         const addTaskBtn = document.createElement("button");
@@ -85,7 +112,10 @@ export function renderDom() {
         addTaskBtn.setAttribute("class", "addTaskBtn");
         addTaskBtn.setAttribute("data-attribute-index", `${i}`);
         addTaskBtn.addEventListener("click", openTaskDialog);
-        newProject.appendChild(addTaskBtn);
+
+        const removeTaskBtnHeader = document.createElement("th");
+        removeTaskBtnHeader.appendChild(addTaskBtn);
+        projHeader.appendChild(removeTaskBtnHeader);
     }
 }
 
