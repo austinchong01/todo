@@ -121,7 +121,8 @@ export function renderDom() {
             newTask.appendChild(title);
 
             const dueDate = document.createElement("td");
-            dueDate.textContent = currProject.tasks[j].dueDate;
+            const date = new Date(currProject.tasks[j].dueDate);
+            dueDate.textContent = `${date.getDay()} Day(s) Left`;
             newTask.appendChild(dueDate);
 
             const priority = document.createElement("td");
