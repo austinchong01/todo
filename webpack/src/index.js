@@ -44,10 +44,10 @@ export function removeTask(event, project, task){
 }
 
 export function changeStatus(event, task){
-    if(task.checkList == "on"){
-        task.checkList = "off";
-    } else { //if task.checkList == "off"
-        task.checkList = "on"
+    if(task.checkList){
+        task.checkList = false;
+    } else { //if task.checkList == "false"
+        task.checkList = true;
     }
     renderDom();
 }

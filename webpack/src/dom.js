@@ -36,7 +36,7 @@ export function closeTaskDialog() {
     const checkList = document.querySelector("#checkList");
     const projIndex = document.querySelector("#projIndex");
     const index = projIndex.getAttribute("data-attribute-index")
-    createTask(title.value, description.value, dueDate.value, priority.value, checkList.value, index);
+    createTask(title.value, description.value, dueDate.value, priority.value, checkList.checked, index);
 
     clearField(title, description, dueDate, priority, checkList);
     taskDialog.close();
@@ -128,10 +128,12 @@ export function renderDom() {
 //status value = off/on
 function setStatus(button, status){
     let text;
-    if (status == "on"){
+    if (status){
         text = "complete";
+        button.setAttribute("class", "true");
     } else { // status == "off"
         text = "incomplete"
+        button.setAttribute("class", "false");
     }
     button.textContent = text;
 }
@@ -151,5 +153,5 @@ function clearField(title, description, dueDate, priority, checkList){
     description.value = "";
     dueDate.value = "";
     priority.value = "Low";
-    checkList.value = "off";
+    checkList.checked = false;
 }
