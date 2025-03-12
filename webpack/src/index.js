@@ -5,9 +5,9 @@ import Task from "./task.js";
 import { openProjectDialog, closeProjectDialog, closeTaskDialog, closeEditDialog, renderDom } from "./dom.js";
 
 loadProject();
-export const Todo = new ProjectManager;
+export let Todo = new ProjectManager;
 createProject("Default");
-saveProject();
+//saveProject();
 
 const addProjBtn = document.querySelector("#addProjBtn");
 addProjBtn.addEventListener("click", openProjectDialog);
@@ -18,7 +18,7 @@ closeProjBtn.addEventListener("click", closeProjectDialog);
 export function createProject(name){
     const project = new Project(name);
     Todo.add(project);
-    saveProject();
+    //saveProject();
     renderDom();
 }
 
@@ -26,7 +26,7 @@ export function removeProject(event){
     const projectIndex = event.target.getAttribute("data-attribute-index");
     const project = Todo.projects[projectIndex];
     Todo.remove(project);
-    saveProject();
+    //saveProject();
     renderDom();
 }
 
@@ -43,7 +43,7 @@ export function createTask(title, description, dueDate, priority, checkList, pro
 
 export function removeTask(event, project, task){
     project.remove(task);
-    saveProject();
+    //saveProject();
     renderDom();
 }
 
@@ -53,7 +53,7 @@ export function changeStatus(event, task){
     } else { //if task.checkList == "false"
         task.checkList = true;
     }
-    saveProject();
+    //saveProject();
     renderDom();
 }
 
@@ -66,20 +66,18 @@ export function editTask(task, title, description, dueDate, priority, checkList)
     task.dueDate = dueDate;
     task.priority = priority;
     task.checkList = checkList;
-    saveProject();
+    //saveProject();
     renderDom();
 }
 
 function saveProject(){
+    console.log(JSON.stringify(Todo));
     localStorage.setItem("Todo", JSON.stringify(Todo));
-
-    const test = localStorage.getItem("Todo")
-    console.log(test);
 }
 
 function loadProject(){
     const storedTodoString = localStorage.getItem("Todo");
     const storedTodo = JSON.parse(storedTodoString);
-    //console.log(storedTodo);
-    return storedTodo;
+    console.log(storedTodo.projects)
+    return storedTodo.projects;
 }
