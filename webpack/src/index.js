@@ -4,10 +4,16 @@ import Project from "./project.js";
 import Task from "./task.js";
 import { openProjectDialog, closeProjectDialog, closeTaskDialog, closeEditDialog, renderDom } from "./dom.js";
 
-loadProject();
-export let Todo = new ProjectManager;
-createProject("Default");
-//saveProject();
+//localStorage.clear();
+export const Todo = loadProject();
+saveProject();
+renderDom();
+
+const clearLocalBtn = document.querySelector("#clearLocal");
+clearLocalBtn.addEventListener("click", () => {
+    localStorage.clear();
+});
+
 
 const addProjBtn = document.querySelector("#addProjBtn");
 addProjBtn.addEventListener("click", openProjectDialog);
@@ -18,7 +24,7 @@ closeProjBtn.addEventListener("click", closeProjectDialog);
 export function createProject(name){
     const project = new Project(name);
     Todo.add(project);
-    //saveProject();
+    saveProject();
     renderDom();
 }
 
@@ -26,7 +32,7 @@ export function removeProject(event){
     const projectIndex = event.target.getAttribute("data-attribute-index");
     const project = Todo.projects[projectIndex];
     Todo.remove(project);
-    //saveProject();
+    saveProject();
     renderDom();
 }
 
@@ -43,7 +49,7 @@ export function createTask(title, description, dueDate, priority, checkList, pro
 
 export function removeTask(event, project, task){
     project.remove(task);
-    //saveProject();
+    saveProject();
     renderDom();
 }
 
@@ -53,7 +59,7 @@ export function changeStatus(event, task){
     } else { //if task.checkList == "false"
         task.checkList = true;
     }
-    //saveProject();
+    saveProject();
     renderDom();
 }
 
@@ -66,18 +72,38 @@ export function editTask(task, title, description, dueDate, priority, checkList)
     task.dueDate = dueDate;
     task.priority = priority;
     task.checkList = checkList;
-    //saveProject();
+    saveProject();
     renderDom();
 }
 
 function saveProject(){
-    console.log(JSON.stringify(Todo));
     localStorage.setItem("Todo", JSON.stringify(Todo));
 }
 
 function loadProject(){
-    const storedTodoString = localStorage.getItem("Todo");
-    const storedTodo = JSON.parse(storedTodoString);
-    console.log(storedTodo.projects)
-    return storedTodo.projects;
+    const storedProjManager = JSON.parse(localStorage.getItem("Todo"));
+
+    if (storedProjManager == null){
+        const firstTodo = new ProjectManager;
+
+        const project = new Project("Default");
+        firstTodo.add(project);
+
+        return firstTodo;
+    }
+
+    const newTodo = new ProjectManager;
+
+    storedProjManager.projects.forEach(project => {
+        const newProject = new Project(project.name);
+        newTodo.add(newProject);
+
+        project.tasks.forEach(task => {
+            const newTask = new Task(task.title, task.description, task.dueDate, task.priority, task.checkList);
+            newProject.add(newTask);
+        });
+
+    });
+
+    return newTodo;
 }
