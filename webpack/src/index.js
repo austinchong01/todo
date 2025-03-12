@@ -4,10 +4,10 @@ import Project from "./project.js";
 import Task from "./task.js";
 import { openProjectDialog, closeProjectDialog, closeTaskDialog, closeEditDialog, renderDom } from "./dom.js";
 
-
+loadProject();
 export const Todo = new ProjectManager;
-
 createProject("Default");
+saveProject();
 
 const addProjBtn = document.querySelector("#addProjBtn");
 addProjBtn.addEventListener("click", openProjectDialog);
@@ -71,5 +71,15 @@ export function editTask(task, title, description, dueDate, priority, checkList)
 }
 
 function saveProject(){
-    localStorage.setItem("Todo", Todo);
+    localStorage.setItem("Todo", JSON.stringify(Todo));
+
+    const test = localStorage.getItem("Todo")
+    console.log(test);
+}
+
+function loadProject(){
+    const storedTodoString = localStorage.getItem("Todo");
+    const storedTodo = JSON.parse(storedTodoString);
+    //console.log(storedTodo);
+    return storedTodo;
 }
