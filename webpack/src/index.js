@@ -4,7 +4,6 @@ import Project from "./project.js";
 import Task from "./task.js";
 import { openProjectDialog, closeProjectDialog, closeTaskDialog, closeEditDialog, renderDom } from "./dom.js";
 
-//localStorage.clear();
 export const Todo = loadProject();
 saveProject();
 renderDom();
